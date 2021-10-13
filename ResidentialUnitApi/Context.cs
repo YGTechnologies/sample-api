@@ -5,10 +5,17 @@ namespace ResidentialUnitApi
 {
     public class Context : DbContext
     {
+
+        static bool init { get; set; } = false;
+
         public Context(DbContextOptions<Context> options)
           : base(options)
         {
-            GenerateData();
+            if (!init)
+            {
+                init = true;
+                GenerateData();
+            }
         }
 
         public DbSet<ResidentialUnit> ResidentialUnits { get; set; }
